@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email-Verify</title>
+  </head>
+
+  <body>
+    <form method="POST" action="/user/verify">
+      <table>
+        <tr>
+          <td><label for="pin">Verification Code : </label></td>
+          <td><input type="text" name="pin" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="submit" id="subbut">Log-In</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

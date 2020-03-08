@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Form</title>
+  </head>
+
+  <body>
+    <form method="POST" action="/user/add">
+      <table>
+        <tr>
+          <td><label for="fullname">Full Name : </label></td>
+          <td><input type="text" name="fullname" /></td>
+        </tr>
+        <tr>
+          <td><label for="email">E-Mail : </label></td>
+          <td><input type="text" name="email" /></td>
+        </tr>
+        <tr>
+          <td><label for="password">Passcode : </label></td>
+          <td><input type="password" name="password" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="submit" id="subbut">Sign-Up</button>
+            <a href="/log-in">Already Have An Account</a>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
