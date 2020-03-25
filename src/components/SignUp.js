@@ -21,12 +21,15 @@ class SignUp extends Component {
       teacher: " ",
       student: " ",
       vcode: " ",
+      vercode: " ",
       isDialogOpen
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCall = this.handleCall.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleCode = this.handleCode.bind(this);
+    this.handleCodeCopy = this.handleCodeCopy.bind(this);
+    this.submitFormCopy = this.submitFormCopy.bind(this);
   }
 
   handleChange(e) {
@@ -66,11 +69,43 @@ class SignUp extends Component {
       });
   }
 
+  handleCodeCopy(e) {
+    e.preventDefault();
+    fetch("http://localhost:3001/user/verify/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        vcode: this.state.vcode,
+        vercode: this.state.vercode,
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data.result === "Created") {
+          alert("Account Created Successfully");
+          this.setState({ isDialogOpen: false });
+          //this.props.onHandleCall(e.target.value);
+        } else {
+          alert("Incorrect Verification Code");
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   handleCall(e) {
     this.props.onHandleCall(e.target.value);
   }
 
-  //handleClose = () => this.setState({ isDialogOpen: false });
+  handleClose = () => this.setState({ isDialogOpen: false });
 
   submitForm(e) {
     e.preventDefault();
@@ -94,6 +129,37 @@ class SignUp extends Component {
           //alert("A Verification Code Has Been Send To Your Email!");
           //this.setState({ isDialogOpen: true, userDetails:  data.});
           console.log("data*********", JSON.parse(data.details));
+        } else {
+          alert(data.result);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  submitFormCopy(e) {
+    e.preventDefault();
+    this.setState({ vercode: Math.floor(Math.random() * 1000000) + "" });
+    fetch("http://localhost:3001/user/add/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        vcode: this.state.vcode
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        if (data.result === "Send") {
+          alert("A Verification Code Has Been Send To Your Email!");
+          this.setState({ isDialogOpen: true });
         } else {
           alert(data.result);
         }
@@ -127,7 +193,7 @@ class SignUp extends Component {
           >
             <form
               style={this.props.classes.form}
-              onSubmit={this.handleCode}
+              onSubmit={this.handleCodeCopy}
               noValidate
             >
               <TextField
@@ -159,7 +225,7 @@ class SignUp extends Component {
         ) : (
           <form
             style={this.props.classes.form}
-            onSubmit={this.submitForm}
+            onSubmit={this.submitFormCopy}
             noValidate
           >
             <RadioGroup
