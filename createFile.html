@@ -3,15 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Email-Verify</title>
+    <title>Test Form</title>
   </head>
 
   <body>
-    <form method="POST" action="/user/verify">
+    <form method="POST" action="/cont/create">
       <table>
         <tr>
-          <td><label for="vcode">Verification Code : </label></td>
-          <td><input type="text" name="vcode" /></td>
+          <td><label for="name">name : </label></td>
+          <td><input type="text" name="name" /></td>
+        </tr>
+        <tr>
+          <td><label for="Context">Context : </label></td>
+          <td><textarea name="context"></textarea></td>
         </tr>
         <tr>
           <td></td>
