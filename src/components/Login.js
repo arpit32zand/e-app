@@ -10,7 +10,7 @@ import { Redirect } from "react-router-dom";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 // import ForgotPass from "./ForgotPass";
-import Forgot from "./Forgot";
+//import { Redirect } from "react-router-dom";
 import Copyright from "./Copyright";
 
 export default class Login extends Component {
@@ -136,7 +136,8 @@ export default class Login extends Component {
     else
       formchoise = (
         //<ForgotPass />
-        <Forgot classes="classes" decider={this.state.decider} loggedIn />
+
+        <Redirect to="/forgot/false" />
       );
 
     return (
