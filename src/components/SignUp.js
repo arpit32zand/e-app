@@ -4,7 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Dialog from "react-dialog";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -111,42 +110,36 @@ class SignUp extends Component {
           Sign Up
         </Typography>
         {this.state.isDialogOpen ? (
-          <Dialog
-            modal={true}
-            onClose={this.handleClose}
-            style={this.props.classes.dialog}
+          <form
+            style={this.props.classes.form}
+            onSubmit={this.handleCode}
+            noValidate
           >
-            <form
-              style={this.props.classes.form}
-              onSubmit={this.handleCode}
-              noValidate
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              label="Verification Code"
+              id="vcode"
+              autoComplete="current-vcode"
+              autoFocus
+              type="text"
+              placeholder="Enter Verification Code"
+              name="vcode"
+              onChange={this.handleChange}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              style={this.props.classes.submit}
+              //onClick={this.handleCode}
             >
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                label="Verification Code"
-                id="vcode"
-                autoComplete="current-vcode"
-                autoFocus
-                type="text"
-                placeholder="Enter Verification Code"
-                name="vcode"
-                onChange={this.handleChange}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                style={this.props.classes.submit}
-                //onClick={this.handleCode}
-              >
-                Submit
-              </Button>
-            </form>
-          </Dialog>
+              Submit
+            </Button>
+          </form>
         ) : (
           <form
             style={this.props.classes.form}
