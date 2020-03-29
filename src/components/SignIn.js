@@ -12,10 +12,11 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     let loggedIn = false;
+    let catdecide = "teacher";
     this.state = {
       email: " ",
       password: " ",
-
+      catdecide,
       loggedIn
     };
     this.handleChange = this.handleChange.bind(this);
@@ -54,8 +55,10 @@ class SignIn extends Component {
       })
 
       .then(data => {
-        if (data.result === "Logged") {
-          this.setState({ loggedIn: true });
+        if (data.result === "TLogged") {
+          this.setState({ loggedIn: true, catdecide: "teacher" });
+        } else if (data.result === "SLogged") {
+          this.setState({ loggedIn: true, catdecide: "student" });
         } else alert(data.result);
       })
       .catch(err => console.log(err));
@@ -63,7 +66,8 @@ class SignIn extends Component {
 
   render() {
     if (this.state.loggedIn) {
-      return <Redirect to="/admin" />;
+      if (this.state.catdecide === "teacher") return <Redirect to="/teacher" />;
+      else return <Redirect to="/student" />;
     }
     return (
       <div>
