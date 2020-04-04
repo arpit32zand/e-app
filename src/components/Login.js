@@ -17,7 +17,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     let loggedIn = false;
-    let radiovalue = "teacher";
+    let radiovalue = "mentor";
     let decider = "signin";
     this.state = {
       decider,
@@ -64,6 +64,19 @@ export default class Login extends Component {
       dialog: {
         translate: "none !important"
       },
+      radi: {
+        display: "inline-block",
+        flexWrap: "wrap",
+        flexDirection: "column"
+      },
+      //   radi1: {
+      //     cursor: pointer,
+      // display: "inline-flex",
+      // alignItems: "center",
+      // marginLeft: "-11px",
+      // marginRight: "16px",
+      // verticalAlign: "middle",
+      //   },
       image: {
         backgroundImage: `url(${homeBackground})`,
         backgroundRepeat: "no-repeat",

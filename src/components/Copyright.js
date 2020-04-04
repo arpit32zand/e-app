@@ -7,7 +7,7 @@ class Copyright extends Component {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {"Copyright © "}
-        <Link color="inherit" href="#">
+        <Link color="inherit" href="http://localhost:3000/#">
           E-GURU
         </Link>{" "}
         {new Date().getFullYear()}

@@ -16,9 +16,8 @@ class SignUp extends Component {
       userDetails: "",
       username: " ",
       password: " ",
+      mobileno: " ",
       email: " ",
-      teacher: " ",
-      student: " ",
       vcode: " ",
       vercode: " ",
       isDialogOpen
@@ -52,6 +51,7 @@ class SignUp extends Component {
         username: this.state.username,
         email: this.state.email,
         password: this.state.password,
+        mobileno: this.state.mobileno,
         category: this.props.radiovalue
       })
     })
@@ -61,8 +61,10 @@ class SignUp extends Component {
       .then(data => {
         if (data.result === "Created") {
           alert("Account Created Successfully");
-        } else {
+        } else if (data.result === "Incorrect") {
           alert("Incorrect Verification Code");
+        } else {
+          alert(data.result);
         }
       })
       .catch(err => {
@@ -104,6 +106,17 @@ class SignUp extends Component {
   }
 
   render() {
+    const classes = {
+      radi: {
+        display: "inline-block",
+        flexWrap: "wrap",
+        flexDirection: "column"
+      },
+      radi1: {
+        marginRight: "100px",
+        marginLeft: "110px"
+      }
+    };
     return (
       <div>
         <Typography component="h1" variant="h5">
@@ -150,18 +163,20 @@ class SignUp extends Component {
               aria-label="category"
               name="category"
               value={this.props.radiovalue}
+              style={classes.radi}
               //onChange={this.handleChange}
             >
               <FormControlLabel
-                value="teacher"
+                value="mentor"
                 control={<Radio />}
-                label="teacher"
+                label="Mentor"
+                style={classes.radi1}
                 onClick={this.handleRadio}
               />
               <FormControlLabel
-                value="student"
+                value="candidate"
                 control={<Radio />}
-                label="student"
+                label="Candidate"
                 onClick={this.handleRadio}
               />
             </RadioGroup>
@@ -206,7 +221,19 @@ class SignUp extends Component {
               name="password"
               onChange={this.handleChange}
             />
-
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required5
+              fullWidth
+              label="Mobile No."
+              id="mobileno"
+              autoComplete="mobile no."
+              type="text"
+              placeholder="mobile no."
+              name="mobileno"
+              onChange={this.handleChange}
+            />
             <Button
               type="submit"
               fullWidth

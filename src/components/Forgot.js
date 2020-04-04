@@ -11,8 +11,6 @@ import Copyright from "./Copyright";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { Redirect } from "react-router-dom";
-// import ForgotPass from "./ForgotPass";
-//import ForgotPass from "./ForgotPass";
 
 class Forgot extends Component {
   constructor(props) {
@@ -38,7 +36,6 @@ class Forgot extends Component {
   }
   handlePass(e) {
     e.preventDefault();
-    //this.setState({ email: JSON.parse(localStorage.getItem("email")) });
     fetch("http://localhost:3001/user/forgotpass/", {
       method: "PUT",
       headers: {
@@ -122,10 +119,7 @@ class Forgot extends Component {
         backgroundSize: "cover",
         backgroundPosition: "center"
       },
-      // inpu: {
-      //   width: "100%",
-      //   min-width: "500px"
-      // },
+
       paper: {
         margin: "8px 4px",
         display: "flex",
@@ -145,7 +139,6 @@ class Forgot extends Component {
       },
       form: {
         width: "100%", // Fix IE 11 issue.
-        //minWidth: "500px",
         marginTop: "1px"
       },
       form1: {
@@ -155,7 +148,6 @@ class Forgot extends Component {
         border: "0",
         height: "1.1875em",
         display: "block",
-        //padding: 6px 0 7px,
         minWidth: "500px",
         background: "none",
         boxSizing: "content-box"
