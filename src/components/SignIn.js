@@ -115,7 +115,7 @@ class SignIn extends Component {
             fullWidth
             variant="contained"
             color="primary"
-            style={this.props.classes.submit}
+            //style={this.props.classes.submit}
             //onClick={this.submitForm}
           >
             Sign In
