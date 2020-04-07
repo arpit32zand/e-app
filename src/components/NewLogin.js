@@ -34,12 +34,10 @@ export default class Login extends Component {
       loggedIn,
       userDetails: "",
       username: " ",
-      teacher: " ",
-      student: " ",
       vcode: " ",
       vercode: " ",
       isUpDialogOpen,
-      isFoDialogOpen
+      isFoDialogOpen,
     };
     this.handleInCall = this.handleInCall.bind(this);
     this.handleFormail = this.handleFormail.bind(this);
@@ -73,19 +71,19 @@ export default class Login extends Component {
     fetch("http://localhost:3001/user/verify/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         vcode: this.state.vcode,
         username: this.state.username,
         email: this.state.email,
-        password: this.state.password
-      })
+        password: this.state.password,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Created") {
           alert("Account Created Successfully");
           this.setState({ isUpDialogOpen: false });
@@ -93,7 +91,7 @@ export default class Login extends Component {
           alert("Incorrect Verification Code");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -104,23 +102,23 @@ export default class Login extends Component {
     fetch("http://localhost:3001/user/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
-        password: this.state.password
-      })
+        password: this.state.password,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
 
-      .then(data => {
+      .then((data) => {
         if (data.result === "Logged") {
           this.setState({ loggedIn: true });
         } else alert(data.result);
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handlePass(e) {
@@ -128,18 +126,18 @@ export default class Login extends Component {
     fetch("http://localhost:3001/user/forgotpass/", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
         newpass: this.state.newpass,
-        confpass: this.state.confpass
-      })
+        confpass: this.state.confpass,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Success") {
           alert("Password Changed Successfully");
           this.setState({ isFoDialogOpen: false });
@@ -148,7 +146,7 @@ export default class Login extends Component {
           alert("Confirm Password Doesn't Match With New Password");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -159,16 +157,16 @@ export default class Login extends Component {
     fetch("http://localhost:3001/user/forgotmail", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: this.state.email
-      })
+        email: this.state.email,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Exist") {
           alert("Please Check Your Email ID");
           this.setState({ isFoDialogOpen: true, reDirect: true });
@@ -176,7 +174,7 @@ export default class Login extends Component {
           alert("Account Doesn't Exist");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -188,16 +186,16 @@ export default class Login extends Component {
     fetch("http://localhost:3001/user/add/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: this.state.email
-      })
+        email: this.state.email,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Send") {
           alert("A Verification Code Has Been Send To Your Email!");
           this.setState({ isUpDialogOpen: true });
@@ -205,7 +203,7 @@ export default class Login extends Component {
           alert(data.result);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -217,44 +215,44 @@ export default class Login extends Component {
 
     const classes = {
       root: {
-        height: "100vh"
+        height: "100vh",
       },
       closeButton: {
         position: "absolute",
         right: "1em",
         top: "1em",
-        color: "grey"
+        color: "grey",
       },
       dialog: {
-        translate: "none !important"
+        translate: "none !important",
       },
       image: {
         backgroundImage: `url(${homeBackground})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
       },
       paper: {
         margin: "8px 4px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "40px 20px"
+        padding: "40px 20px",
       },
       avatarParent: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "40px 20px 0"
+        padding: "40px 20px 0",
       },
       avatar: {
         margin: "1px",
-        backgroundColor: "red"
+        backgroundColor: "red",
       },
       form: {
         width: "100%", // Fix IE 11 issue.
         minWidth: "500px",
-        marginTop: "1px"
+        marginTop: "1px",
       },
       form1: {
         font: "inherit",
@@ -266,13 +264,13 @@ export default class Login extends Component {
         //padding: 6px 0 7px,
         minWidth: "500px",
         background: "none",
-        boxSizing: "content-box"
+        boxSizing: "content-box",
       },
       submit: {
         width: "100%",
         minWidth: "500px",
-        margin: "3px 0 2px"
-      }
+        margin: "3px 0 2px",
+      },
     };
 
     let formchoise;
@@ -393,18 +391,18 @@ export default class Login extends Component {
               <RadioGroup
                 aria-label="gender"
                 name="gender1"
-                value="teacher"
+                value="mentor"
                 onChange={this.handleChange}
               >
                 <FormControlLabel
-                  value="teacher"
+                  value="mentor"
                   control={<Radio />}
-                  label="teacher"
+                  label="mentor"
                 />
                 <FormControlLabel
-                  value="student"
+                  value="candidate"
                   control={<Radio />}
-                  label="student"
+                  label="candidate"
                 />
               </RadioGroup>
               <TextField

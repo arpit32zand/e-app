@@ -12,7 +12,7 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     let loggedIn = false;
-    let catdecide = "teacher";
+    let catdecide = "mentor";
     this.state = {
       email: " ",
       password: " ",
@@ -60,13 +60,13 @@ class SignIn extends Component {
             "email",
             JSON.stringify({ email: this.state.email, uid: 1 })
           );
-          this.setState({ loggedIn: true, catdecide: "teacher" });
+          this.setState({ loggedIn: true, catdecide: "mentor" });
         } else if (data.result === "SLogged") {
           localStorage.setItem(
             "email",
             JSON.stringify({ email: this.state.email, uid: 2 })
           );
-          this.setState({ loggedIn: true, catdecide: "student" });
+          this.setState({ loggedIn: true, catdecide: "candidate" });
         } else if (data.result === "ULogged") {
           alert("You Must Login");
         } else {
@@ -78,9 +78,8 @@ class SignIn extends Component {
 
   render() {
     if (this.state.loggedIn) {
-      if (this.state.catdecide === "teacher")
-        return <Redirect to="/teacher/" />;
-      else return <Redirect to="/student" />;
+      if (this.state.catdecide === "mentor") return <Redirect to="/mentor/" />;
+      else return <Redirect to="/candidate" />;
     }
     return (
       <div>
