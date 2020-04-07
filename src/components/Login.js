@@ -92,13 +92,13 @@ export default class Login extends Component {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "40px 20px"
+        padding: "30px 20px"
       },
       avatarParent: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "40px 20px 0"
+        padding: "20px 20px 0"
       },
       avatar: {
         margin: "1px",
@@ -123,7 +123,7 @@ export default class Login extends Component {
       },
       submit: {
         width: "100%",
-        minWidth: "500px",
+        minWidth: "370px",
         margin: "3px 0 2px"
       }
     };

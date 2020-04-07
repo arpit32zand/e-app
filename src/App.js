@@ -14,14 +14,14 @@ class App extends Component {
     super(props);
     let openPass = true;
     this.state = {
-      openPass
+      openPass,
     };
   }
   render() {
     return (
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/teacher" exact component={Teacher} />
+        <Route path="/teacher/" exact component={Teacher} />
         <Route
           path="/gmail"
           component={() => {

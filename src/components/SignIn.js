@@ -17,7 +17,7 @@ class SignIn extends Component {
       email: " ",
       password: " ",
       catdecide,
-      loggedIn
+      loggedIn,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCall = this.handleCall.bind(this);
@@ -43,30 +43,43 @@ class SignIn extends Component {
     fetch("http://localhost:3001/user/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
-        password: this.state.password
-      })
+        password: this.state.password,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
 
-      .then(data => {
+      .then((data) => {
         if (data.result === "TLogged") {
+          localStorage.setItem(
+            "email",
+            JSON.stringify({ email: this.state.email, uid: 1 })
+          );
           this.setState({ loggedIn: true, catdecide: "teacher" });
         } else if (data.result === "SLogged") {
+          localStorage.setItem(
+            "email",
+            JSON.stringify({ email: this.state.email, uid: 2 })
+          );
           this.setState({ loggedIn: true, catdecide: "student" });
-        } else alert(data.result);
+        } else if (data.result === "ULogged") {
+          alert("You Must Login");
+        } else {
+          alert(data.result);
+        }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   render() {
     if (this.state.loggedIn) {
-      if (this.state.catdecide === "teacher") return <Redirect to="/teacher" />;
+      if (this.state.catdecide === "teacher")
+        return <Redirect to="/teacher/" />;
       else return <Redirect to="/student" />;
     }
     return (
