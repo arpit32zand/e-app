@@ -77,78 +77,86 @@ class SignIn extends Component {
     }
     return (
       <div>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form
-          style={this.props.classes.form}
-          onSubmit={this.submitForm}
-          noValidate
-        >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            autoComplete="email"
-            autoFocus
-            type="text"
-            placeholder="email"
-            name="email"
-            onChange={this.handleChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Password"
-            id="password"
-            autoComplete="current-password"
-            type="password"
-            placeholder="password"
-            name="password"
-            onChange={this.handleChange}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            //style={this.props.classes.submit}
-            //onClick={this.submitForm}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link
-                href="#"
-                value="forgot"
-                onClick={this.handleformail}
-                variant="body2"
+        {!JSON.parse(localStorage.getItem("type")) ? (
+          <div>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <form
+              style={this.props.classes.form}
+              onSubmit={this.submitForm}
+              noValidate
+            >
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                autoComplete="email"
+                autoFocus
+                type="text"
+                placeholder="email"
+                name="email"
+                onChange={this.handleChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                label="Password"
+                id="password"
+                autoComplete="current-password"
+                type="password"
+                placeholder="password"
+                name="password"
+                onChange={this.handleChange}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                //style={this.props.classes.submit}
+                //onClick={this.submitForm}
               >
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link
-                href="#"
-                value="signup"
-                onClick={this.handleCall}
-                variant="body2"
-              >
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link
+                    href="#"
+                    value="forgot"
+                    onClick={this.handleformail}
+                    variant="body2"
+                  >
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link
+                    href="#"
+                    value="signup"
+                    onClick={this.handleCall}
+                    variant="body2"
+                  >
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+        ) : (
+          <div>
+            <Redirect to="/mentor" />;
+          </div>
+        )}
       </div>
     );
   }
