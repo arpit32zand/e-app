@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
-class Student extends Component {
+class Candidate extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -20,7 +20,7 @@ class Student extends Component {
         {JSON.parse(localStorage.getItem("email")) ? (
           JSON.parse(localStorage.getItem("email")).uid === 2 ? (
             <div>
-              <h1>Student</h1>
+              <h1>Candidate</h1>
               <button type="submit" name="LogOut" onClick={this.handleOut}>
                 Log-Out
               </button>
@@ -32,7 +32,7 @@ class Student extends Component {
           )
         ) : (
           <div>
-            <Redirect to="/student/" />;
+            <Redirect to="/candidate/" />;
           </div>
         )}
       </div>
@@ -40,4 +40,4 @@ class Student extends Component {
   }
 }
 
-export default Student;
+export default Candidate;

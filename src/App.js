@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
-import Teacher from "./components/Teacher";
-import Student from "./components/Student";
+import Mentor from "./components/Mentor";
+import Candidate from "./components/Candidate";
 //import ForgotPass from "./components/ForgotPass";
 import Forgot from "./components/Forgot";
 
@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/teacher/" exact component={Teacher} />
+        <Route path="/mentor/" exact component={Mentor} />
         <Route
           path="/gmail"
           component={() => {
@@ -30,7 +30,7 @@ class App extends Component {
           }}
         />
         <Route path="/forgot/:handle" exact component={Forgot} />
-        <Route path="/student" exact component={Student} />
+        <Route path="/candidate" exact component={Candidate} />
       </Switch>
     );
   }
