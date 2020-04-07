@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -19,8 +23,9 @@ class SignUp extends Component {
       mobileno: " ",
       email: " ",
       vcode: " ",
+      subject: " ",
       vercode: " ",
-      isDialogOpen
+      isDialogOpen,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCall = this.handleCall.bind(this);
@@ -35,7 +40,7 @@ class SignUp extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -44,7 +49,7 @@ class SignUp extends Component {
     fetch("http://localhost:3001/user/verify/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         vcode: this.state.vcode,
@@ -52,13 +57,13 @@ class SignUp extends Component {
         email: this.state.email,
         password: this.state.password,
         mobileno: this.state.mobileno,
-        category: this.props.radiovalue
-      })
+        category: this.props.radiovalue,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Created") {
           alert("Account Created Successfully");
         } else if (data.result === "Incorrect") {
@@ -67,7 +72,7 @@ class SignUp extends Component {
           alert(data.result);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -83,16 +88,16 @@ class SignUp extends Component {
     fetch("http://localhost:3001/user/add/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: this.state.email
-      })
+        email: this.state.email,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Send") {
           alert("A Verification Code Has Been Send To Your Email!");
           this.setState({ isDialogOpen: true });
@@ -100,7 +105,7 @@ class SignUp extends Component {
           alert(data.result);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -110,12 +115,32 @@ class SignUp extends Component {
       radi: {
         display: "inline-block",
         flexWrap: "wrap",
-        flexDirection: "column"
+        flexDirection: "column",
+      },
+      submit: {
+        width: "100%",
+        maxWidth: "370px",
+        marginLeft: "50px",
       },
       radi1: {
-        marginRight: "100px",
-        marginLeft: "110px"
-      }
+        marginRight: "120px",
+        marginLeft: "65px",
+      },
+      formControl: {
+        minWidth: 120,
+      },
+      links: {
+        margin: "4px 0 4px 50px",
+      },
+      text: {
+        width: "370px",
+        //height: "50px",
+        margin: "4px 0 4px 50px",
+      },
+      selec: {
+        margin: "4px 0 4px 50px",
+        minWidth: "370px",
+      },
     };
     return (
       <div>
@@ -132,7 +157,7 @@ class SignUp extends Component {
               variant="outlined"
               margin="normal"
               required
-              fullWidth
+              //fullWidth
               label="Verification Code"
               id="vcode"
               autoComplete="current-vcode"
@@ -140,6 +165,7 @@ class SignUp extends Component {
               type="text"
               placeholder="Enter Verification Code"
               name="vcode"
+              style={classes.text}
               onChange={this.handleChange}
             />
             <Button
@@ -147,7 +173,7 @@ class SignUp extends Component {
               fullWidth
               variant="contained"
               color="primary"
-              style={this.props.classes.submit}
+              style={classes.submit}
               //onClick={this.handleCode}
             >
               Submit
@@ -183,8 +209,8 @@ class SignUp extends Component {
             <TextField
               variant="outlined"
               margin="normal"
-              required5
-              fullWidth
+              required
+              // fullWidth
               label="Username"
               id="username"
               autoComplete="current-username"
@@ -192,6 +218,7 @@ class SignUp extends Component {
               type="text"
               placeholder="username"
               name="username"
+              style={classes.text}
               onChange={this.handleChange}
             />
 
@@ -199,47 +226,71 @@ class SignUp extends Component {
               variant="outlined"
               margin="normal"
               required
-              fullWidth
+              //fullWidth
               id="email"
               label="Email Address"
               autoComplete="email"
               type="email"
               placeholder="email"
               name="email"
+              style={classes.text}
               onChange={this.handleChange}
             />
             <TextField
               variant="outlined"
               margin="normal"
               required
-              fullWidth
+              //fullWidth
               label="Password"
               id="password"
               autoComplete="current-password"
               type="password"
               placeholder="password"
               name="password"
+              style={classes.text}
               onChange={this.handleChange}
             />
             <TextField
               variant="outlined"
               margin="normal"
               required5
-              fullWidth
+              //fullWidth
               label="Mobile No."
               id="mobileno"
               autoComplete="mobile no."
               type="text"
               placeholder="mobile no."
               name="mobileno"
+              style={classes.text}
               onChange={this.handleChange}
             />
+            {this.props.radiovalue === "candidate" ? (
+              <div>
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel style={classes.selec}>Subject</InputLabel>
+                  <Select
+                    style={classes.selec}
+                    onChange={this.handleChange}
+                    label="Subject"
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={1}>None 1</MenuItem>
+                    <MenuItem value={2}>None 2</MenuItem>
+                    <MenuItem value={3}>None 3</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+            ) : (
+              console.log("Mentor")
+            )}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              style={this.props.classes.submit}
+              style={classes.submit}
             >
               Register
             </Button>
@@ -249,6 +300,7 @@ class SignUp extends Component {
                   href="#"
                   id="signup"
                   onClick={this.handleCall}
+                  style={classes.links}
                   variant="body2"
                 >
                   {"Already Have an Account! Sign In"}
@@ -263,3 +315,16 @@ class SignUp extends Component {
 }
 
 export default SignUp;
+
+/* <TextField
+                variant="outlined"
+                margin="normal"
+                required5
+                fullWidth
+                label="Subject"
+                id="subject"
+                autoComplete="subject"
+                type="text"
+                placeholder="subject"
+                onChange={this.handleChange}
+              /> */

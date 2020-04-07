@@ -22,7 +22,7 @@ class Forgot extends Component {
       newpass: "",
       confpass: "",
       isDialogOpen,
-      reDirect
+      reDirect,
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -31,7 +31,7 @@ class Forgot extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   }
   handlePass(e) {
@@ -39,18 +39,18 @@ class Forgot extends Component {
     fetch("http://localhost:3001/user/forgotpass/", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: JSON.parse(localStorage.getItem("email")),
         newpass: this.state.newpass,
-        confpass: this.state.confpass
-      })
+        confpass: this.state.confpass,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Success") {
           alert("Password Changed Successfully");
           this.setState({ isDialogOpen: false });
@@ -59,7 +59,7 @@ class Forgot extends Component {
           alert("Confirm Password Doesn't Match With New Password");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -70,16 +70,16 @@ class Forgot extends Component {
     fetch("http://localhost:3001/user/forgotmail", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: this.state.email
-      })
+        email: this.state.email,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.result === "Exist") {
           alert("Please Check Your Email ID");
           this.setState({ reDirect: true });
@@ -87,7 +87,7 @@ class Forgot extends Component {
           alert("Account Doesn't Exist");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -102,22 +102,22 @@ class Forgot extends Component {
 
     const classes = {
       root: {
-        height: "100vh"
+        height: "100vh",
       },
       closeButton: {
         position: "absolute",
         right: "1em",
         top: "1em",
-        color: "grey"
+        color: "grey",
       },
       dialog: {
-        translate: "none !important"
+        translate: "none !important",
       },
       image: {
         backgroundImage: `url(${homeBackground})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
       },
 
       paper: {
@@ -125,21 +125,21 @@ class Forgot extends Component {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "40px 20px"
+        padding: "40px 20px",
       },
       avatarParent: {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "40px 20px 0"
+        padding: "40px 20px 0",
       },
       avatar: {
         margin: "1px",
-        backgroundColor: "red"
+        backgroundColor: "red",
       },
       form: {
         width: "100%", // Fix IE 11 issue.
-        marginTop: "1px"
+        marginTop: "1px",
       },
       form1: {
         font: "inherit",
@@ -150,13 +150,13 @@ class Forgot extends Component {
         display: "block",
         minWidth: "500px",
         background: "none",
-        boxSizing: "content-box"
+        boxSizing: "content-box",
       },
       submit: {
         width: "100%",
         minWidth: "500px",
-        margin: "3px 0 2px"
-      }
+        margin: "3px 0 2px",
+      },
     };
 
     return (
