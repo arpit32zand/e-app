@@ -56,19 +56,13 @@ class SignIn extends Component {
 
       .then((data) => {
         if (data.result === "TLogged") {
-          localStorage.setItem(
-            "email",
-            JSON.stringify({ email: this.state.email, uid: 1 })
-          );
-          this.setState({ loggedIn: true, catdecide: "mentor" });
+          this.setState({ catdecide: "mentor" });
+          localStorage.setItem("type", JSON.stringify(this.state.catdecide));
+          this.setState({ loggedIn: true });
         } else if (data.result === "SLogged") {
-          localStorage.setItem(
-            "email",
-            JSON.stringify({ email: this.state.email, uid: 2 })
-          );
-          this.setState({ loggedIn: true, catdecide: "candidate" });
-        } else if (data.result === "ULogged") {
-          alert("You Must Login");
+          this.setState({ catdecide: "candidate" });
+          localStorage.setItem("type", JSON.stringify(this.state.catdecide));
+          this.setState({ loggedIn: true });
         } else {
           alert(data.result);
         }
