@@ -10,29 +10,27 @@ class Candidate extends Component {
 
   handleOut(e) {
     e.preventDefault();
-    localStorage.removeItem("email");
+    localStorage.removeItem("type");
     window.location.reload(false);
   }
 
   render() {
     return (
       <div>
-        {JSON.parse(localStorage.getItem("email")) ? (
-          JSON.parse(localStorage.getItem("email")).uid === 2 ? (
-            <div>
-              <h1>Candidate</h1>
-              <button type="submit" name="LogOut" onClick={this.handleOut}>
-                Log-Out
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Redirect to="/" />;
-            </div>
-          )
+        {JSON.parse(localStorage.getItem("type")) === "candidate" ? (
+          <div>
+            <h1>Candidate</h1>
+            <button type="submit" name="LogOut" onClick={this.handleOut}>
+              Log-Out
+            </button>
+          </div>
+        ) : JSON.parse(localStorage.getItem("type")) === "mentor" ? (
+          <div>
+            <Redirect to="/mentor" />;
+          </div>
         ) : (
           <div>
-            <Redirect to="/candidate/" />;
+            <Redirect to="/" />;
           </div>
         )}
       </div>
