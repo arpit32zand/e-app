@@ -17,7 +17,7 @@ class SignIn extends Component {
       email: " ",
       password: " ",
       catdecide,
-      loggedIn,
+      loggedIn
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleCall = this.handleCall.bind(this);
@@ -67,7 +67,26 @@ class SignIn extends Component {
           alert(data.result);
         }
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
+
+      if(this.state.catdecide === "mentor")
+      {
+        fetch("http://localhost:3001/mentors/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+          })
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            data.map((key)=>(
+              key.email === this.state.email ? localStorage.setItem("mentorData", JSON.stringify(key)) : console.log(key)
+            ))
+           })
+          .catch(err => console.log(err));
+      }
   }
 
   render() {
