@@ -43,18 +43,18 @@ class SignIn extends Component {
     fetch("http://localhost:3001/user/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         email: this.state.email,
-        password: this.state.password,
-      }),
+        password: this.state.password
+      })
     })
-      .then((res) => {
+      .then(res => {
         return res.json();
       })
 
-      .then((data) => {
+      .then(data => {
         if (data.result === "TLogged") {
           this.setState({ catdecide: "mentor" });
           localStorage.setItem("type", JSON.stringify(this.state.catdecide));
@@ -69,24 +69,25 @@ class SignIn extends Component {
       })
       .catch(err => console.log(err));
 
-      if(this.state.catdecide === "mentor")
-      {
-        fetch("http://localhost:3001/mentors/", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json"
-          }
-          })
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            data.map((key)=>(
-              key.email === this.state.email ? localStorage.setItem("mentorData", JSON.stringify(key)) : console.log(key)
-            ))
-           })
-          .catch(err => console.log(err));
-      }
+    if (this.state.catdecide === "mentor") {
+      fetch("http://localhost:3001/mentors/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          data.map(key =>
+            key.email === this.state.email
+              ? localStorage.setItem("mentorData", JSON.stringify(key))
+              : console.log(key)
+          );
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   render() {
