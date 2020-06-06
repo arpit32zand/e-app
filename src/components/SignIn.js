@@ -12,11 +12,11 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     let loggedIn = false;
-    let catdecide = "mentor";
+    // let catdecide = "mentor";
     this.state = {
       email: " ",
       password: " ",
-      catdecide,
+      catdecide: "",
       loggedIn
     };
     this.handleChange = this.handleChange.bind(this);
@@ -37,10 +37,10 @@ class SignIn extends Component {
     this.props.onHandleCall(e.target.value);
   }
 
-  submitForm(e) {
+  async submitForm(e) {
     e.preventDefault();
 
-    fetch("http://localhost:3001/user/", {
+    await fetch("http://localhost:3001/user/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -85,6 +85,40 @@ class SignIn extends Component {
               ? localStorage.setItem("mentorData", JSON.stringify(key))
               : console.log(key)
           );
+        })
+        .catch(err => console.log(err));
+    }
+
+    if ( this.state.catdecide === "candidate") {
+      await fetch("http://localhost:3001/candidates/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          data.map(key =>
+            key.email === this.state.email
+              ? localStorage.setItem("candidateData", JSON.stringify(key))
+              : console.log(key)
+          );
+        })
+        .catch(err => console.log(err));
+
+      await fetch("http://localhost:3001/allcourse/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(data => {
+          localStorage.setItem("courseData", JSON.stringify(data))
         })
         .catch(err => console.log(err));
     }

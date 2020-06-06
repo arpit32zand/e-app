@@ -34,6 +34,7 @@ class Forgot extends Component {
       [e.target.name]: e.target.value,
     });
   }
+  
   handlePass(e) {
     e.preventDefault();
     fetch("http://localhost:3001/user/forgotpass/", {

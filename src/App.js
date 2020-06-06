@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Mentor from "./components/Mentor";
 import Candidate from "./components/Candidate";
+import AddCourses from "./components/AddCourses";
 //import ForgotPass from "./components/ForgotPass";
 import Forgot from "./components/Forgot";
 
@@ -31,6 +32,8 @@ class App extends Component {
         />
         <Route path="/forgot/:handle" exact component={Forgot} />
         <Route path="/candidate" exact component={Candidate} />
+        <Route path="/mentor/addCourses" exact component={AddCourses} />
+        <Route path="/candidate/content" exact component={AddCourses} />
       </Switch>
     );
   }

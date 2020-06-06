@@ -174,7 +174,9 @@ export default class Login extends Component {
             </div>
             <div style={classes.paper}>{formchoise}</div>
             <Box mt={5}>
-              <Copyright />
+              <Copyright 
+                onHandleCall={this.handleUpCall}
+              />
             </Box>
           </Grid>
         </Grid>
