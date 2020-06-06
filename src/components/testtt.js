@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -14,16 +17,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
-import Button from '@material-ui/core/Button';
-//import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from "@material-ui/icons/AccountCircle";
-// import Switch from '@material-ui/core/Switch';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
-class Mentor extends Component {
+class Candidate extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,6 +31,7 @@ class Mentor extends Component {
       newChange: false,
       auth: true,
       editProf: false,
+      myCourProf: false,
       visible: false,
       username: null,
       email: null,
@@ -51,6 +50,7 @@ class Mentor extends Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleOldPass = this.handleOldPass.bind(this);
     this.handleNewPass = this.handleNewPass.bind(this);
+    // this.handleMyCourse = this.handleMyCourse.bind(this);
   }
 
   handleMobChange() {
@@ -179,46 +179,32 @@ class Mentor extends Component {
   }
 
   render() {
-    const mentorData = localStorage.getItem("mentorData");
-    let data = JSON.parse(mentorData);
-
+    const candidateData = localStorage.getItem("candidateData");
+    const courseData = localStorage.getItem("courseData");
+    let data = JSON.parse(candidateData);
+    let course=JSON.parse(courseData);
+    
     const classes = {
       root: {
-        flexGrow: 1
+        flexGrow: 1,
       },
-      cardroot: {
-        alignItems: "stretch",
-        display: "flex",
-        flexWrap: "wrap",
-        marginLeft: "-12px",
-        paddingTop: "0",
-        width: "calc(100% + 24px)",
-        maxWidth: "275px",
-        position: "absolute",
-        left: "100px"
+      paper: {
+        padding: '10px',
+        margin: 'auto',
+        maxWidth: 500,
+        
       },
-      bullet: {
-        maxWidth: "275px",
-        display: "inline-block",
-        margin: "0 2px",
-        transform: "scale(0.8)"
+      image: {
+        width: 128,
+        height: 128,
       },
-      cardtitle: {
-        fontSize: 14
-      },
-      pos: {
-        marginBottom: 12
-      },
-      menuButton: {
-        marginRight: "2px",
-        position: "absolute",
-        right: "10px"
-      },
-      title: {
-        flexGrow: 1
+      img: {
+        margin: 'auto',
+        display: 'block',
+        maxWidth: '100px',
+        maxHeight: '100px',
       }
     };
-
     return (
       <div>
         {this.state.editProf ? (
@@ -232,7 +218,7 @@ class Mentor extends Component {
                   <Typography variant="h6" className={classes.title}>
                     Edit Profile
                   </Typography>
-                  {JSON.parse(localStorage.getItem("type")) === "mentor" ? (
+                  {JSON.parse(localStorage.getItem("type")) === "candidate" ? (
                     <div>
                       <IconButton
                         style={{
@@ -277,15 +263,15 @@ class Mentor extends Component {
                       </Menu>
                     </div>
                   ) : JSON.parse(localStorage.getItem("type")) ===
-                    "candidate" ? (
-                    <div>
-                      <Redirect to="/candidate" />;
+                    "mentor" ? (
+                        <div>
+                          <Redirect to="/mentor" />;
                     </div>
-                  ) : (
-                    <div>
-                      <Redirect to="/" />;
+                      ) : (
+                        <div>
+                          <Redirect to="/" />;
                     </div>
-                  )}
+                      )}
                 </Toolbar>
               </AppBar>
             </div>
@@ -360,30 +346,30 @@ class Mentor extends Component {
                             <DoneIcon onClick={this.handleNameChange} />
                           </div>
                         ) : (
-                          <div
-                            style={{
-                              maxWidth: "410px",
-                              minWidth: "400px",
-                              display: "inline-flex"
-                            }}
-                          >
-                            <ListItemText
-                              style={{ width: "350px" }}
-                              primary={this.state.username}
-                            />
-                            <CreateIcon
-                              onClick={() => {
-                                this.setState({
-                                  nameChange: true,
-                                  username: data.username,
-                                  mobileno: data.mobileno,
-                                  email: data.email,
-                                  uid: data.uid
-                                });
+                            <div
+                              style={{
+                                maxWidth: "410px",
+                                minWidth: "400px",
+                                display: "inline-flex"
                               }}
-                            />
-                          </div>
-                        )}
+                            >
+                              <ListItemText
+                                style={{ width: "350px" }}
+                                primary={this.state.username}
+                              />
+                              <CreateIcon
+                                onClick={() => {
+                                  this.setState({
+                                    nameChange: true,
+                                    username: data.username,
+                                    mobileno: data.mobileno,
+                                    email: data.email,
+                                    uid: data.uid
+                                  });
+                                }}
+                              />
+                            </div>
+                          )}
                       </ListItem>
                       <Divider />
                       <ListItem
@@ -410,30 +396,30 @@ class Mentor extends Component {
                             <DoneIcon onClick={this.handleMobChange} />
                           </div>
                         ) : (
-                          <div
-                            style={{
-                              maxWidth: "410px",
-                              minWidth: "400px",
-                              display: "inline-flex"
-                            }}
-                          >
-                            <ListItemText
-                              style={{ width: "350px" }}
-                              primary={this.state.mobileno}
-                            />
-                            <CreateIcon
-                              onClick={() => {
-                                this.setState({
-                                  mobChange: true,
-                                  username: data.username,
-                                  mobileno: data.mobileno,
-                                  email: data.email,
-                                  uid: data.uid
-                                });
+                            <div
+                              style={{
+                                maxWidth: "410px",
+                                minWidth: "400px",
+                                display: "inline-flex"
                               }}
-                            />
-                          </div>
-                        )}
+                            >
+                              <ListItemText
+                                style={{ width: "350px" }}
+                                primary={this.state.mobileno}
+                              />
+                              <CreateIcon
+                                onClick={() => {
+                                  this.setState({
+                                    mobChange: true,
+                                    username: data.username,
+                                    mobileno: data.mobileno,
+                                    email: data.email,
+                                    uid: data.uid
+                                  });
+                                }}
+                              />
+                            </div>
+                          )}
                       </ListItem>
                       <Divider />
                       <ListItem
@@ -476,48 +462,48 @@ class Mentor extends Component {
                               />
                             </div>
                           ) : (
+                              <div
+                                style={{ maxWidth: "351px", minWidth: "351px" }}
+                              >
+                                <TextField
+                                  required
+                                  id="standard-required"
+                                  name="oldPass"
+                                  style={{ maxWidth: "200px" }}
+                                  placeholder="Old Password"
+                                  onChange={this.handleChange}
+                                />
+                                <DoneIcon
+                                  style={{ textAlign: "right" }}
+                                  onClick={this.handleOldPass}
+                                />
+                              </div>
+                            )
+                        ) : (
                             <div
-                              style={{ maxWidth: "351px", minWidth: "351px" }}
+                              style={{
+                                maxWidth: "410px",
+                                minWidth: "400px",
+                                display: "inline-flex"
+                              }}
                             >
-                              <TextField
-                                required
-                                id="standard-required"
-                                name="oldPass"
-                                style={{ maxWidth: "200px" }}
-                                placeholder="Old Password"
-                                onChange={this.handleChange}
+                              <ListItemText
+                                style={{ width: "350px" }}
+                                primary="**********"
                               />
-                              <DoneIcon
-                                style={{ textAlign: "right" }}
-                                onClick={this.handleOldPass}
+                              <CreateIcon
+                                onClick={() => {
+                                  this.setState({
+                                    oldChange: true,
+                                    username: data.username,
+                                    mobileno: data.mobileno,
+                                    email: data.email,
+                                    uid: data.uid
+                                  });
+                                }}
                               />
                             </div>
-                          )
-                        ) : (
-                          <div
-                            style={{
-                              maxWidth: "410px",
-                              minWidth: "400px",
-                              display: "inline-flex"
-                            }}
-                          >
-                            <ListItemText
-                              style={{ width: "350px" }}
-                              primary="**********"
-                            />
-                            <CreateIcon
-                              onClick={() => {
-                                this.setState({
-                                  oldChange: true,
-                                  username: data.username,
-                                  mobileno: data.mobileno,
-                                  email: data.email,
-                                  uid: data.uid
-                                });
-                              }}
-                            />
-                          </div>
-                        )}
+                          )}
                       </ListItem>
                     </List>
                     <CardActions />
@@ -528,12 +514,10 @@ class Mentor extends Component {
             </div>
           </div>
         ) : (
-          <div>
-            <AppBar position="static">
-              <Toolbar>
-                {/* <IconButton edg`e="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-           </IconButton> */}
+          this.state.myCourProf ? (<h1>console.log("hello");</h1>) : (
+            <div>
+              <AppBar position="static">
+                <Toolbar>
                 {this.state.username === null ? (
                   <Typography variant="h6" className={classes.title}>
                     Hi {data.username} !
@@ -543,7 +527,7 @@ class Mentor extends Component {
                     Hi {this.state.username} !
                   </Typography>
                 )}
-                {JSON.parse(localStorage.getItem("type")) === "mentor" ? (
+                {JSON.parse(localStorage.getItem("type")) === "candidate" ? (
                   <div>
                     <IconButton
                       style={{
@@ -561,7 +545,7 @@ class Mentor extends Component {
                       <AccountCircle />
                     </IconButton>
                     <Menu
-                      style={{ right: "25px", top: "-55px", padding: "0" }}
+                      style={{ right: "25px", top: "35px", padding: "0" }}
                       anchorOrigin={{
                         vertical: "top",
                         horizontal: "right"
@@ -588,95 +572,75 @@ class Mentor extends Component {
                       >
                         Edit Profile
                       </MenuItem>
+                      <MenuItem onClick={() => {
+                          this.setState({
+                            myCourProf: !this.state.myCourProf,
+                            visible: !this.state.visible,
+                          });
+                        }}
+                      >My Courses</MenuItem>
                       <MenuItem onClick={this.handleOut}>Logout</MenuItem>
                     </Menu>
                   </div>
-                ) : JSON.parse(localStorage.getItem("type")) === "candidate" ? (
-                  <div>
-                    <Redirect to="/candidate" />;
+                  ) : JSON.parse(localStorage.getItem("type")) === "candidate" ? (
+                    <div>
+                      <Redirect to="/candidate" />;
+                    </div>
+                  ) : (
+                    <div>
+                      <Redirect to="/" />;
+                    </div>
+                  )}
+                </Toolbar>
+              </AppBar>
+              <div className={classes.root}>
+                <Paper style={{
+                      display: 'flex',
+                      position: 'absolute',
+                      left: '50px',
+                      top: '100px',
+                }} className={classes.paper}>
+                  <div style={{
+                    display: 'block',
+                    
+                  }}>
+                    {course.map(row => (
+                  <Grid container xs={3} spacing={2}>
+                    <Grid item>
+                      <ButtonBase className={classes.image}>
+                        <img height="160px" width="250px" alt="complex" src="/images/java.jpg" />
+                      </ButtonBase>
+                    </Grid>
+                    <Grid item xs={4} sm container>
+                      <Grid item xs container direction="column" spacing={2}>
+                        <Grid item xs>
+                          <Typography gutterBottom variant="subtitle1">
+                            Course Name: {row.courseName}
+                          </Typography>
+                          <Typography variant="body2" gutterBottom>
+                            Actual Price: {row.actualPrice}
+                          </Typography>
+                          <Typography variant="body2" >
+                            Discounted Price: {row.discountPrice}
+                          </Typography>
+                        </Grid>
+                        
+                      </Grid>
+                      
+                    </Grid>
+                  </Grid>
+                    ))}
                   </div>
-                ) : (
-                  <div>
-                    <Redirect to="/" />;
-                  </div>
-                )}
-              </Toolbar>
-            </AppBar>
-            <Button style={{float: "right",margin:"20px"}} onClick={event =>  window.location.href='/mentor/addCourses'} variant="contained" color="primary">
-            + Add Courses
-            </Button>
-            <br/>
-            <br/>
-            <table
-              style={{
-                textAlign: "center",
-                fontFamily: "Calibri",
-                borderCollapse: "collapse",
-                border: "3px solid #ddd",
-                width: "100%"
-              }}
-            >
-              <tr
-                style={{
-                  color: "#3f51b5",
-                  backgroundColor: "#00000038",
-                  border: "1px solid #00000038",
-                  padding: "5px"
-                }}
-              >
-                <th
-                  style={{ padding: "15px", borderRight: "3px solid #3f51b5" }}
-                >
-                  Course ID
-                </th>
-                <th
-                  style={{ padding: "15px", borderRight: "3px solid #3f51b5" }}
-                >
-                  Course Name
-                </th>
-                <th
-                  style={{ padding: "15px", borderRight: "3px solid #3f51b5" }}
-                >
-                  Actual Price
-                </th>
-                <th
-                  style={{ padding: "15px", borderRight: "3px solid #3f51b5" }}
-                >
-                  Discounted Price
-                </th>
-                <th style={{ padding: "15px" }}>File type</th>
-              </tr>
-              {data.subject.map(row => (
-                <tr>
-                  <td
-                    style={{ padding: "15px", borderRight: "3px solid #ccc" }}
-                  >
-                    {row.courseId}
-                  </td>
-                  <td
-                    style={{ padding: "15px", borderRight: "3px solid #ccc" }}
-                  >
-                    {row.courseName}
-                  </td>
-                  <td
-                    style={{ padding: "15px", borderRight: "3px solid #ccc" }}
-                  >
-                    {row.actualPrice}
-                  </td>
-                  <td
-                    style={{ padding: "15px", borderRight: "3px solid #ccc" }}
-                  >
-                    {row.discountPrice}
-                  </td>
-                  <td style={{ padding: "15px" }}>{row.fileType}</td>
-                </tr>
-              ))}
-            </table>
-          </div>
-        )}
+                </Paper>
+              </div>
+            </div>
+            
+          ))
+        }
       </div>
     );
   }
 }
 
-export default Mentor;
+
+export default Candidate;
