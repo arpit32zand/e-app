@@ -67,6 +67,7 @@ class AddCourses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: null,
       activeStep: 0,
       courseName: null,
       discountPrice: null,
@@ -74,6 +75,7 @@ class AddCourses extends React.Component {
       fileType: null,
       textContent: null,
       path: null,
+      imagePath: null
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
@@ -82,6 +84,12 @@ class AddCourses extends React.Component {
     this.handleBack = this.handleBack.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.uploadImage = this.uploadImage.bind(this)
+  }
+
+  uploadImage(e)
+  {
+      this.setState({imagePath: URL.createObjectURL(e.target.files[0])})
   }
 
   getSteps() {
@@ -103,7 +111,7 @@ class AddCourses extends React.Component {
             />
             <br />
             <br />
-            <input type="file" />
+            <input type="file" onChange={(e)=> this.uploadImage(e)}/>
           </div>
         );
       case 1:
@@ -205,6 +213,7 @@ class AddCourses extends React.Component {
         discountPrice: this.state.discountPrice,
         fileType: this.state.fileType,
         textContent: this.state.textContent,
+        imagePath: this.state.imagePath
       }),
     })
       .then((res) => {
