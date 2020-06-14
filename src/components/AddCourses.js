@@ -73,23 +73,34 @@ class AddCourses extends React.Component {
       discountPrice: null,
       actualPrice: null,
       fileType: null,
+      visible: false,
       textContent: null,
       path: null,
-      imagePath: null
+      imagePath: null,
+      redirect: false,
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.uploadImage = this.uploadImage.bind(this)
+    this.uploadImage = this.uploadImage.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
   }
 
-  uploadImage(e)
-  {
-      this.setState({imagePath: URL.createObjectURL(e.target.files[0])})
+  handleMenu() {
+    this.setState({ visible: !this.state.visible });
+  }
+
+  handleClose() {
+    this.setState({ visible: !this.state.visible });
+  }
+
+  uploadImage(e) {
+    this.setState({ imagePath: URL.createObjectURL(e.target.files[0]) });
   }
 
   getSteps() {
@@ -111,7 +122,7 @@ class AddCourses extends React.Component {
             />
             <br />
             <br />
-            <input type="file" onChange={(e)=> this.uploadImage(e)}/>
+            <input type="file" onChange={(e) => this.uploadImage(e)} />
           </div>
         );
       case 1:
@@ -213,7 +224,7 @@ class AddCourses extends React.Component {
         discountPrice: this.state.discountPrice,
         fileType: this.state.fileType,
         textContent: this.state.textContent,
-        imagePath: this.state.imagePath
+        imagePath: this.state.imagePath,
       }),
     })
       .then((res) => {
@@ -255,6 +266,7 @@ class AddCourses extends React.Component {
   }
 
   render() {
+    // if (redirect === true) {<Redirect to="/mentor" />}
     const mentorData = localStorage.getItem("mentorData");
     let data = JSON.parse(mentorData);
 
@@ -271,9 +283,9 @@ class AddCourses extends React.Component {
                 <MenuIcon />
                </IconButton> */}
               <Typography variant="h6" className={classes.title}>
-                {this.state.subname}
+                Add Course
               </Typography>
-              {JSON.parse(localStorage.getItem("type")) === "candidate" ? (
+              {JSON.parse(localStorage.getItem("type")) === "mentor" ? (
                 <div>
                   <IconButton
                     style={{
@@ -307,34 +319,16 @@ class AddCourses extends React.Component {
                     <MenuItem
                       onClick={() => {
                         this.setState({
-                          conte: !this.state.conte,
-                          myCourProf: !this.state.myCourProf,
                           visible: !this.state.visible,
+                          redirect: !this.state.redirect,
                         });
                       }}
                     >
                       Home
                     </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        this.setState({
-                          editProf: !this.state.editProf,
-                          conte: !this.state.conte,
-                          myCourProf: !this.state.myCourProf,
-                          visible: !this.state.visible,
-                          username: data.username,
-                          mobileno: data.mobileno,
-                          email: data.email,
-                          uid: data.uid,
-                        });
-                      }}
-                    >
-                      Edit Profile
-                    </MenuItem>
-                    <MenuItem onClick={this.handleOut}>Logout</MenuItem>
                   </Menu>
                 </div>
-              ) : JSON.parse(localStorage.getItem("type")) === "mentor" ? (
+              ) : JSON.parse(localStorage.getItem("type")) === "candidate" ? (
                 <div>{/* <Redirect to="/mentor" />; */}</div>
               ) : (
                 <div>{/* <Redirect to="/" />; */}</div>

@@ -14,7 +14,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 //import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from "@material-ui/icons/AccountCircle";
 // import Switch from '@material-ui/core/Switch';
@@ -40,7 +40,7 @@ class Mentor extends Component {
       mobileno: null,
       oldPass: null,
       newPass: null,
-      confPass: null
+      confPass: null,
     };
     this.handleOut = this.handleOut.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -57,19 +57,19 @@ class Mentor extends Component {
     fetch("http://localhost:3001/user/update-m-c", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
         uid: this.state.uid,
-        mobileno: this.state.mobileno
-      })
+        mobileno: this.state.mobileno,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
 
-      .then(ress => {
+      .then((ress) => {
         if (ress.result === "DONE") {
           this.setState({ mobChange: false });
           alert("Mobile No Changed");
@@ -77,26 +77,26 @@ class Mentor extends Component {
           alert(ress.result);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handleNameChange() {
     fetch("http://localhost:3001/user/update-m-c", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
         uid: this.state.uid,
-        username: this.state.username
-      })
+        username: this.state.username,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
 
-      .then(ress => {
+      .then((ress) => {
         if (ress.result === "DONE") {
           this.setState({ nameChange: false });
           alert("USERNAME Changed");
@@ -104,52 +104,52 @@ class Mentor extends Component {
           alert(ress.result);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handleOldPass() {
     fetch("http://localhost:3001/user/update-m-c", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
-        oldPass: this.state.oldPass
-      })
+        oldPass: this.state.oldPass,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
 
-      .then(ress => {
+      .then((ress) => {
         if (ress.result === "FOUND") {
           this.setState({ newChange: true });
         } else {
           alert(ress.result);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handleNewPass() {
     fetch("http://localhost:3001/user/update-m-c", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: this.state.email,
         uid: this.state.uid,
         newPass: this.state.newPass,
-        confPass: this.state.confPass
-      })
+        confPass: this.state.confPass,
+      }),
     })
-      .then(res => {
+      .then((res) => {
         return res.json();
       })
 
-      .then(ress => {
+      .then((ress) => {
         if (ress.result === "DONE") {
           this.setState({ oldChange: false, newChange: false });
           alert("Changed Successful");
@@ -157,7 +157,7 @@ class Mentor extends Component {
           alert(ress.result);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   handleOut(e) {
@@ -184,7 +184,7 @@ class Mentor extends Component {
 
     const classes = {
       root: {
-        flexGrow: 1
+        flexGrow: 1,
       },
       cardroot: {
         alignItems: "stretch",
@@ -195,28 +195,28 @@ class Mentor extends Component {
         width: "calc(100% + 24px)",
         maxWidth: "275px",
         position: "absolute",
-        left: "100px"
+        left: "100px",
       },
       bullet: {
         maxWidth: "275px",
         display: "inline-block",
         margin: "0 2px",
-        transform: "scale(0.8)"
+        transform: "scale(0.8)",
       },
       cardtitle: {
-        fontSize: 14
+        fontSize: 14,
       },
       pos: {
-        marginBottom: 12
+        marginBottom: 12,
       },
       menuButton: {
         marginRight: "2px",
         position: "absolute",
-        right: "10px"
+        right: "10px",
       },
       title: {
-        flexGrow: 1
-      }
+        flexGrow: 1,
+      },
     };
 
     return (
@@ -239,7 +239,7 @@ class Mentor extends Component {
                           position: "absolute",
                           right: "25px",
                           top: "25px",
-                          padding: "0"
+                          padding: "0",
                         }}
                         aria-label="account of current user"
                         aria-controls="menu-appbar"
@@ -249,16 +249,17 @@ class Mentor extends Component {
                       >
                         <AccountCircle />
                       </IconButton>
+
                       <Menu
                         style={{ right: "25px", top: "-55px", padding: "0" }}
                         anchorOrigin={{
                           vertical: "top",
-                          horizontal: "right"
+                          horizontal: "right",
                         }}
                         keepMounted
                         transformOrigin={{
                           vertical: "top",
-                          horizontal: "right"
+                          horizontal: "right",
                         }}
                         open={this.state.visible}
                         onClose={this.handleClose}
@@ -267,7 +268,7 @@ class Mentor extends Component {
                           onClick={() => {
                             this.setState({
                               editProf: !this.state.editProf,
-                              visible: !this.state.visible
+                              visible: !this.state.visible,
                             });
                           }}
                         >
@@ -296,7 +297,7 @@ class Mentor extends Component {
                     variant="h4"
                     style={{
                       textAlign: "center",
-                      fontFamily: "Roboto,Arial,sans-serif"
+                      fontFamily: "Roboto,Arial,sans-serif",
                     }}
                     component="h4"
                   >
@@ -307,7 +308,7 @@ class Mentor extends Component {
                     style={{
                       width: "100%",
                       margin: "25px auto",
-                      padding: "0"
+                      padding: "0",
                     }}
                     variant="outlined"
                   >
@@ -315,7 +316,7 @@ class Mentor extends Component {
                       style={{
                         width: "100%",
                         margin: "25px auto",
-                        padding: "0"
+                        padding: "0",
                       }}
                     />
                     <Typography
@@ -324,7 +325,7 @@ class Mentor extends Component {
                         fontSize: "1.375rem",
                         fontWeight: "400",
                         padding: "0 12px",
-                        margin: "0 0 4px 0"
+                        margin: "0 0 4px 0",
                       }}
                       component="h4"
                     >
@@ -345,7 +346,7 @@ class Mentor extends Component {
                             paddingTop: "4px",
                             width: "156px",
                             marginRight: "24px",
-                            maxWidth: "190px"
+                            maxWidth: "190px",
                           }}
                         />
                         {this.state.nameChange ? (
@@ -364,7 +365,7 @@ class Mentor extends Component {
                             style={{
                               maxWidth: "410px",
                               minWidth: "400px",
-                              display: "inline-flex"
+                              display: "inline-flex",
                             }}
                           >
                             <ListItemText
@@ -378,7 +379,7 @@ class Mentor extends Component {
                                   username: data.username,
                                   mobileno: data.mobileno,
                                   email: data.email,
-                                  uid: data.uid
+                                  uid: data.uid,
                                 });
                               }}
                             />
@@ -396,7 +397,7 @@ class Mentor extends Component {
                             paddingTop: "4px",
                             width: "156px",
                             marginRight: "24px",
-                            maxWidth: "190px"
+                            maxWidth: "190px",
                           }}
                         />
                         {this.state.mobChange ? (
@@ -414,7 +415,7 @@ class Mentor extends Component {
                             style={{
                               maxWidth: "410px",
                               minWidth: "400px",
-                              display: "inline-flex"
+                              display: "inline-flex",
                             }}
                           >
                             <ListItemText
@@ -428,7 +429,7 @@ class Mentor extends Component {
                                   username: data.username,
                                   mobileno: data.mobileno,
                                   email: data.email,
-                                  uid: data.uid
+                                  uid: data.uid,
                                 });
                               }}
                             />
@@ -445,7 +446,7 @@ class Mentor extends Component {
                             paddingTop: "4px",
                             width: "156px",
                             marginRight: "24px",
-                            maxWidth: "190px"
+                            maxWidth: "190px",
                           }}
                           primary="PASSWORD"
                         />
@@ -498,7 +499,7 @@ class Mentor extends Component {
                             style={{
                               maxWidth: "410px",
                               minWidth: "400px",
-                              display: "inline-flex"
+                              display: "inline-flex",
                             }}
                           >
                             <ListItemText
@@ -512,7 +513,7 @@ class Mentor extends Component {
                                   username: data.username,
                                   mobileno: data.mobileno,
                                   email: data.email,
-                                  uid: data.uid
+                                  uid: data.uid,
                                 });
                               }}
                             />
@@ -550,7 +551,7 @@ class Mentor extends Component {
                         position: "absolute",
                         right: "25px",
                         top: "25px",
-                        padding: "0"
+                        padding: "0",
                       }}
                       aria-label="account of current user"
                       aria-controls="menu-appbar"
@@ -564,12 +565,12 @@ class Mentor extends Component {
                       style={{ right: "25px", top: "-55px", padding: "0" }}
                       anchorOrigin={{
                         vertical: "top",
-                        horizontal: "right"
+                        horizontal: "right",
                       }}
                       keepMounted
                       transformOrigin={{
                         vertical: "top",
-                        horizontal: "right"
+                        horizontal: "right",
                       }}
                       open={this.state.visible}
                       onClose={this.handleClose}
@@ -582,7 +583,7 @@ class Mentor extends Component {
                             username: data.username,
                             mobileno: data.mobileno,
                             email: data.email,
-                            uid: data.uid
+                            uid: data.uid,
                           });
                         }}
                       >
@@ -602,18 +603,23 @@ class Mentor extends Component {
                 )}
               </Toolbar>
             </AppBar>
-            <Button style={{float: "right",margin:"20px"}} onClick={event =>  window.location.href='/mentor/addCourses'} variant="contained" color="primary">
-            + Add Courses
+            <Button
+              style={{ float: "right", margin: "20px" }}
+              onClick={(event) => (window.location.href = "/mentor/addCourses")}
+              variant="contained"
+              color="primary"
+            >
+              + Add Courses
             </Button>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <table
               style={{
                 textAlign: "center",
                 fontFamily: "Calibri",
                 borderCollapse: "collapse",
                 border: "3px solid #ddd",
-                width: "100%"
+                width: "100%",
               }}
             >
               <tr
@@ -621,7 +627,7 @@ class Mentor extends Component {
                   color: "#3f51b5",
                   backgroundColor: "#00000038",
                   border: "1px solid #00000038",
-                  padding: "5px"
+                  padding: "5px",
                 }}
               >
                 <th
@@ -646,7 +652,7 @@ class Mentor extends Component {
                 </th>
                 <th style={{ padding: "15px" }}>File type</th>
               </tr>
-              {data.subject.map(row => (
+              {data.subject.map((row) => (
                 <tr>
                   <td
                     style={{ padding: "15px", borderRight: "3px solid #ccc" }}
