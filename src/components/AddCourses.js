@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useHistory } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PropTypes from "prop-types";
@@ -77,7 +78,7 @@ class AddCourses extends React.Component {
       textContent: null,
       path: null,
       imagePath: null,
-      redirect: false,
+      // redirect: false,
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
@@ -266,7 +267,8 @@ class AddCourses extends React.Component {
   }
 
   render() {
-    // if (redirect === true) {<Redirect to="/mentor" />}
+    const history = useHistory();
+    // if (this.state.redirect === true) <Redirect to="/mentor" />
     const mentorData = localStorage.getItem("mentorData");
     let data = JSON.parse(mentorData);
 
@@ -320,8 +322,8 @@ class AddCourses extends React.Component {
                       onClick={() => {
                         this.setState({
                           visible: !this.state.visible,
-                          redirect: !this.state.redirect,
                         });
+                        history.goBack();
                       }}
                     >
                       Home
