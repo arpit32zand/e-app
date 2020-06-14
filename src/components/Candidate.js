@@ -297,7 +297,7 @@ class Candidate extends Component {
                         <AccountCircle />
                       </IconButton>
                       <Menu
-                        style={{ right: "25px", top: "55px", padding: "0" }}
+                        style={{ right: "25px", top: "35px", padding: "0" }}
                         anchorOrigin={{
                           vertical: "top",
                           horizontal: "right",
@@ -388,7 +388,7 @@ class Candidate extends Component {
                           <Menu
                             style={{
                               right: "25px",
-                              top: "55px",
+                              top: "35px",
                               padding: "0",
                             }}
                             anchorOrigin={{
@@ -535,7 +535,7 @@ class Candidate extends Component {
                           <Menu
                             style={{
                               right: "25px",
-                              top: "-55px",
+                              top: "-185px",
                               padding: "0",
                             }}
                             anchorOrigin={{

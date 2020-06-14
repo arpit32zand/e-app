@@ -18,15 +18,15 @@ const styles = (theme) => ({
   root: {
     width: "100%",
   },
-  contentPanel:{
-    border: '1px solid #ddd',
-    padding: '0 40px 40px',
-    margin: '0 15%'
+  contentPanel: {
+    border: "1px solid #ddd",
+    padding: "0 40px 40px",
+    margin: "0 15%",
   },
   textArea: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: '100%',
+    width: "100%",
   },
   formDiv: {
     width: "80%",
@@ -51,20 +51,20 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
-  inputDiv:{
-    padding:"5px 15px",
-    margin:"12px",
-    background:"rgb(10, 142, 63)",
-    border:"1px solid rgb(10, 142, 63)",
-    position:"relative",
-    color:"#fff",
-    borderRadius:"2px",
-    textAlign:"center",
-    cursor:"pointer",
-    fontFamily: "Roboto, Helvetica, Arial, sans-serif"
+  inputDiv: {
+    padding: "5px 15px",
+    margin: "12px",
+    background: "rgb(10, 142, 63)",
+    border: "1px solid rgb(10, 142, 63)",
+    position: "relative",
+    color: "#fff",
+    borderRadius: "2px",
+    textAlign: "center",
+    cursor: "pointer",
+    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
   },
-  inputFile:{
-    display:"table-cell",
+  inputFile: {
+    display: "table-cell",
     position: "absolute",
     zIndex: "1000",
     opacity: "0",
@@ -73,8 +73,8 @@ const styles = (theme) => ({
     top: "0",
     height: "100%",
     fontSize: "24px",
-    width: "100%"
-  }
+    width: "100%",
+  },
 });
 const types = [
   {
@@ -114,7 +114,6 @@ class AddCourses extends React.Component {
     this.uploadImage = this.uploadImage.bind(this);
     this.handleMenu = this.handleMenu.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    
   }
 
   handleMenu() {
@@ -137,9 +136,9 @@ class AddCourses extends React.Component {
     switch (stepIndex) {
       case 0:
         return (
-          <div style={{"display":"table","padding":"20px 0"}}>
+          <div style={{ display: "table", padding: "20px 0" }}>
             <TextField
-            style={{"display":"table-cell"}}
+              style={{ display: "table-cell" }}
               id="standard-name"
               label="Course Name"
               className={classes.textField}
@@ -148,8 +147,12 @@ class AddCourses extends React.Component {
               margin="normal"
             />
             <div className={classes.inputDiv}>
-            Choose course image
-            <input className={classes.inputFile} type="file" onChange={(e)=> this.uploadImage(e)}/>
+              Choose course image
+              <input
+                className={classes.inputFile}
+                type="file"
+                onChange={(e) => this.uploadImage(e)}
+              />
             </div>
           </div>
         );
@@ -219,10 +222,12 @@ class AddCourses extends React.Component {
                 onChange={this.handleChange}
               />
             ) : this.state.fileType === "Pdf" ? (
-              <div className={classes.inputDiv} style={{"display": "inline-block",
-              "margin-top": "30px"}} >
-              Choose file
-              <input className={classes.inputFile} type="file" />
+              <div
+                className={classes.inputDiv}
+                style={{ display: "inline-block", "margin-top": "30px" }}
+              >
+                Choose file
+                <input className={classes.inputFile} type="file" />
               </div>
             ) : (
               console.log("NULL")
@@ -295,12 +300,11 @@ class AddCourses extends React.Component {
   }
 
   handleClick() {
-    this.setState({visible: !this.state.visible})
-    this.props.history.push('/mentor');
+    this.setState({ visible: !this.state.visible });
+    this.props.history.push("/mentor");
   }
 
   render() {
-    
     // if (this.state.redirect === true) <Redirect to="/mentor" />
     const mentorData = localStorage.getItem("mentorData");
     let data = JSON.parse(mentorData);
@@ -311,7 +315,7 @@ class AddCourses extends React.Component {
 
     return (
       <div className={classes.root}>
-        <div  style={{ position: "relative"}}>
+        <div style={{ position: "relative" }}>
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" className={classes.title}>
@@ -335,7 +339,7 @@ class AddCourses extends React.Component {
                     <AccountCircle />
                   </IconButton>
                   <Menu
-                    style={{ right: "25px", top: "-50px", padding: "0" }}
+                    style={{ right: "25px", top: "-105px", padding: "0" }}
                     anchorOrigin={{
                       vertical: "top",
                       horizontal: "right",
@@ -348,11 +352,7 @@ class AddCourses extends React.Component {
                     open={this.state.visible}
                     onClose={this.handleClose}
                   >
-                    <MenuItem 
-                      onClick={this.handleClick}
-                    >
-                      Home
-                    </MenuItem>
+                    <MenuItem onClick={this.handleClick}>Home</MenuItem>
                   </Menu>
                 </div>
               ) : JSON.parse(localStorage.getItem("type")) === "candidate" ? (

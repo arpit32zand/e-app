@@ -221,6 +221,7 @@ class Mentor extends Component {
 
     return (
       <div>
+        {/* {window.location.reload(true)} */}
         {this.state.editProf ? (
           <div>
             <div>
@@ -251,7 +252,7 @@ class Mentor extends Component {
                       </IconButton>
 
                       <Menu
-                        style={{ right: "25px", top: "-55px", padding: "0" }}
+                        style={{ right: "25px", top: "-185px", padding: "0" }}
                         anchorOrigin={{
                           vertical: "top",
                           horizontal: "right",
@@ -562,7 +563,7 @@ class Mentor extends Component {
                       <AccountCircle />
                     </IconButton>
                     <Menu
-                      style={{ right: "25px", top: "-55px", padding: "0" }}
+                      style={{ right: "25px", top: "-500px", padding: "0" }}
                       anchorOrigin={{
                         vertical: "top",
                         horizontal: "right",
