@@ -3,7 +3,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useHistory } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PropTypes from "prop-types";
@@ -14,20 +13,20 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-// import FormControl from '@material-ui/core/FormControl';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-// import Input from '@material-ui/core/Input';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 const styles = (theme) => ({
   root: {
     width: "100%",
   },
+  contentPanel:{
+    border: '1px solid #ddd',
+    padding: '0 40px 40px',
+    margin: '0 15%'
+  },
   textArea: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 900,
+    width: '100%',
   },
   formDiv: {
     width: "80%",
@@ -52,6 +51,30 @@ const styles = (theme) => ({
     marginRight: theme.spacing.unit,
     width: 200,
   },
+  inputDiv:{
+    padding:"5px 15px",
+    margin:"12px",
+    background:"rgb(10, 142, 63)",
+    border:"1px solid rgb(10, 142, 63)",
+    position:"relative",
+    color:"#fff",
+    borderRadius:"2px",
+    textAlign:"center",
+    cursor:"pointer",
+    fontFamily: "Roboto, Helvetica, Arial, sans-serif"
+  },
+  inputFile:{
+    display:"table-cell",
+    position: "absolute",
+    zIndex: "1000",
+    opacity: "0",
+    cursor: "pointer",
+    right: "0",
+    top: "0",
+    height: "100%",
+    fontSize: "24px",
+    width: "100%"
+  }
 });
 const types = [
   {
@@ -90,6 +113,8 @@ class AddCourses extends React.Component {
     this.handleReset = this.handleReset.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.handleMenu = this.handleMenu.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    
   }
 
   handleMenu() {
@@ -112,8 +137,9 @@ class AddCourses extends React.Component {
     switch (stepIndex) {
       case 0:
         return (
-          <div>
+          <div style={{"display":"table","padding":"20px 0"}}>
             <TextField
+            style={{"display":"table-cell"}}
               id="standard-name"
               label="Course Name"
               className={classes.textField}
@@ -121,9 +147,10 @@ class AddCourses extends React.Component {
               onChange={this.handleChange}
               margin="normal"
             />
-            <br />
-            <br />
-            <input type="file" onChange={(e) => this.uploadImage(e)} />
+            <div className={classes.inputDiv}>
+            Choose course image
+            <input className={classes.inputFile} type="file" onChange={(e)=> this.uploadImage(e)}/>
+            </div>
           </div>
         );
       case 1:
@@ -192,9 +219,10 @@ class AddCourses extends React.Component {
                 onChange={this.handleChange}
               />
             ) : this.state.fileType === "Pdf" ? (
-              <div>
-                <br />
-                <input type="file" />
+              <div className={classes.inputDiv} style={{"display": "inline-block",
+              "margin-top": "30px"}} >
+              Choose file
+              <input className={classes.inputFile} type="file" />
               </div>
             ) : (
               console.log("NULL")
@@ -266,8 +294,13 @@ class AddCourses extends React.Component {
     });
   }
 
+  handleClick() {
+    this.setState({visible: !this.state.visible})
+    this.props.history.push('/mentor');
+  }
+
   render() {
-    const history = useHistory();
+    
     // if (this.state.redirect === true) <Redirect to="/mentor" />
     const mentorData = localStorage.getItem("mentorData");
     let data = JSON.parse(mentorData);
@@ -278,12 +311,9 @@ class AddCourses extends React.Component {
 
     return (
       <div className={classes.root}>
-        <div>
+        <div  style={{ position: "relative"}}>
           <AppBar position="static">
             <Toolbar>
-              {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-               </IconButton> */}
               <Typography variant="h6" className={classes.title}>
                 Add Course
               </Typography>
@@ -291,7 +321,7 @@ class AddCourses extends React.Component {
                 <div>
                   <IconButton
                     style={{
-                      position: "absolute",
+                      position: "fixed",
                       right: "25px",
                       top: "25px",
                       padding: "0",
@@ -305,7 +335,7 @@ class AddCourses extends React.Component {
                     <AccountCircle />
                   </IconButton>
                   <Menu
-                    style={{ right: "25px", top: "55px", padding: "0" }}
+                    style={{ right: "25px", top: "-50px", padding: "0" }}
                     anchorOrigin={{
                       vertical: "top",
                       horizontal: "right",
@@ -318,13 +348,8 @@ class AddCourses extends React.Component {
                     open={this.state.visible}
                     onClose={this.handleClose}
                   >
-                    <MenuItem
-                      onClick={() => {
-                        this.setState({
-                          visible: !this.state.visible,
-                        });
-                        history.goBack();
-                      }}
+                    <MenuItem 
+                      onClick={this.handleClick}
                     >
                       Home
                     </MenuItem>
@@ -355,7 +380,7 @@ class AddCourses extends React.Component {
                 <Button onClick={this.handleReset}>Reset</Button>
               </div>
             ) : (
-              <div>
+              <div className={classes.contentPanel}>
                 <Typography className={classes.instructions}>
                   {this.getStepContent(activeStep, classes)}
                 </Typography>
