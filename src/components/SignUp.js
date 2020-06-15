@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import FormControl from "@material-ui/core/FormControl";
+// import Select from "@material-ui/core/Select";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -264,7 +264,7 @@ class SignUp extends Component {
               style={classes.text}
               onChange={this.handleChange}
             />
-            {this.props.radiovalue === "candidate" ? (
+            {/* {this.props.radiovalue === "candidate" ? (
               <div>
                 <FormControl variant="outlined" className={classes.formControl}>
                   <InputLabel style={classes.selec}>Subject</InputLabel>
@@ -284,7 +284,7 @@ class SignUp extends Component {
               </div>
             ) : (
               console.log("Mentor")
-            )}
+            )} */}
             <Button
               type="submit"
               fullWidth
