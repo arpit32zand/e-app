@@ -13,6 +13,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import axios from 'axios';
 
 const styles = (theme) => ({
   root: {
@@ -101,7 +102,7 @@ class AddCourses extends React.Component {
       textContent: null,
       path: null,
       imagePath: null,
-      // redirect: false,
+      imageData: null,
     };
     this.getSteps = this.getSteps.bind(this);
     this.getStepContent = this.getStepContent.bind(this);
@@ -124,8 +125,10 @@ class AddCourses extends React.Component {
     this.setState({ visible: !this.state.visible });
   }
 
+  
   uploadImage(e) {
-    this.setState({ imagePath: URL.createObjectURL(e.target.files[0]) });
+    console.log("file*****",  e.target.files, this.state.imagePath)
+    this.setState({ imagePath: e.target.files[0]});
   }
 
   getSteps() {
@@ -151,6 +154,7 @@ class AddCourses extends React.Component {
               <input
                 className={classes.inputFile}
                 type="file"
+                accept =".jpg"
                 onChange={(e) => this.uploadImage(e)}
               />
             </div>
@@ -158,7 +162,7 @@ class AddCourses extends React.Component {
         );
       case 1:
         return (
-          <form className={classes.container} noValidate autoComplete="off">
+           <div className={classes.container}>
             <TextField
               id="standard-number"
               label="Actual Price"
@@ -183,7 +187,7 @@ class AddCourses extends React.Component {
               }}
               margin="normal"
             />
-          </form>
+            </div>
         );
       case 2:
         return (
@@ -244,41 +248,29 @@ class AddCourses extends React.Component {
   }
 
   submitForm(email) {
-    // e.preventDefault();
-    fetch("http://localhost:3001/user/add-course", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        courseName: this.state.courseName,
-        path: this.state.path,
-        actualPrice: this.state.actualPrice,
-        discountPrice: this.state.discountPrice,
-        fileType: this.state.fileType,
-        textContent: this.state.textContent,
-        imagePath: this.state.imagePath,
-      }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        if (data.result === "Created") {
-          this.handleReset();
-          alert("Course Added Successfully");
-          // this.setState(state => ({
-          //   activeStep: state.activeStep + 1,
-          // }));
-        } else {
-          alert(data.result);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // alert("Submitted");
+    //e.preventDefault();
+    let params ={
+      email: email,
+      courseName: this.state.courseName,
+      path: this.state.path,
+      actualPrice: this.state.actualPrice,
+      discountPrice: this.state.discountPrice,
+      fileType: this.state.fileType,
+      textContent: this.state.textContent,
+    }
+    const data = new FormData();
+    Object.keys(params).forEach(key => data.append(key, params[key]))
+    data.append("imagePath", this.state.imagePath);
+
+    axios.post("http://localhost:3001/user/add-course", data, {
+        }).then((res) => {
+          return res.json();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        alert("Course Added Successfully");
+        this.handleReset();
   }
 
   handleNext = () => {
@@ -364,6 +356,7 @@ class AddCourses extends React.Component {
           </AppBar>
         </div>
         <div className={classes.formDiv}>
+        <form action="#">
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
@@ -415,6 +408,7 @@ class AddCourses extends React.Component {
               </div>
             )}
           </div>
+        </form>
         </div>
       </div>
     );
