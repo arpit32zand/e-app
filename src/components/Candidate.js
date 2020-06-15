@@ -454,52 +454,58 @@ class Candidate extends Component {
                     }}
                     className={classes.paper}
                   >
-                    {data.subject.map((row) => (
-                      <Grid
-                        style={{
-                          display: "inline-flex",
-                          position: "relative",
-                        }}
-                        container
-                        xs={3}
-                        spacing={2}
-                      >
-                        <Grid item>
-                          <ButtonBase
-                            className={classes.image}
-                            onClick={() => {
-                              this.handleMyCourse(
-                                row.textContent,
-                                row.courseName
-                              );
-                            }}
-                          >
-                            <img
-                              height="160px"
-                              width="250px"
-                              alt="complex"
-                              src={row.imagePath}
-                            />
-                          </ButtonBase>
-                        </Grid>
-                        <Grid item xs={4} sm container>
-                          <Grid
-                            item
-                            xs
-                            container
-                            direction="column"
-                            spacing={2}
-                          >
-                            <Grid item xs>
-                              <Typography gutterBottom variant="subtitle1">
-                                Course Name: {row.courseName}
-                              </Typography>
-                              <br />
+                    <div
+                      style={{
+                        display: "block",
+                      }}
+                    >
+                      {data.subject.map((row) => (
+                        <Grid
+                          style={{
+                            display: "inline-flex",
+                            position: "relative",
+                          }}
+                          container
+                          xs={3}
+                          spacing={2}
+                        >
+                          <Grid item>
+                            <ButtonBase
+                              className={classes.image}
+                              onClick={() => {
+                                this.handleMyCourse(
+                                  row.textContent,
+                                  row.courseName
+                                );
+                              }}
+                            >
+                              <img
+                                height="160px"
+                                width="250px"
+                                alt="complex"
+                                src={row.imagePath}
+                              />
+                            </ButtonBase>
+                          </Grid>
+                          <Grid item xs={4} sm container>
+                            <Grid
+                              item
+                              xs
+                              container
+                              direction="column"
+                              spacing={2}
+                            >
+                              <Grid item xs>
+                                <Typography gutterBottom variant="subtitle1">
+                                  Course Name: {row.courseName}
+                                </Typography>
+                                <br />
+                              </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
-                    ))}
+                      ))}
+                    </div>
                   </Paper>
                 </div>
               </div>
